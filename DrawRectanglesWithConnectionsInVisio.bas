@@ -17,7 +17,7 @@ Sub DrawRectanglesWithConnectionsInVisio()
     Dim Shape As Object
     Dim j As Integer
     Dim connectToList As Variant
-    Dim connectToID As Integer
+    Dim connectToId As Integer
     Dim targetShape As Object
 
     Dim connectLine As Visio.Shape
@@ -72,14 +72,14 @@ Sub DrawRectanglesWithConnectionsInVisio()
     ' Step 2: Now loop through each rectangle and create the connections
     For i = 2 To lastRow ' Again start from row 2
         rectId = ExcelSheet.Cells(i, 1).value
-        connectToList = Split(ThisWorkbook.Sheets(1).Cells(i, 7).value, ";") ' Split ConnectTo into an array
+        connectToList = Split(ThisWorkbook.Sheets(Sheet1).Cells(i, 7).value, ";") ' Split ConnectTo into an array
         
         ' Loop through each entry in the connectToList (splitted by semicolon)
         For j = LBound(connectToList) To UBound(connectToList)
-            connectToID = Trim(connectToList(j)) ' Trim用于去除字符串两端的空格
-            If connectToID <> 0 Then
-                If ShapesDict.Exists(connectToID) Then
-                    Set targetShape = ShapesDict(connectToID)
+            connectToId = Trim(connectToList(j)) ' Trim用于去除字符串两端的空格
+            If connectToId <> 0 Then
+                If ShapesDict.Exists(connectToId) Then
+                    Set targetShape = ShapesDict(connectToId)
                     Set Shape = ShapesDict(rectId)
                     
                     Set connectLine = VisioPage.Drop(VisioApp.ConnectorToolDataObject, 0#, 0#)
@@ -92,7 +92,7 @@ Sub DrawRectanglesWithConnectionsInVisio()
                     Set vsoCell2 = VisioPage.Shapes.ItemFromID(targetShape.id).CellsSRC(1, 1, 0)
                     vsoCell1.GlueTo vsoCell2
                 Else
-                    MsgBox "没有序号" & connectToID & "的矩形，无法连接线！"
+                    MsgBox "没有序号" & connectToId & "的矩形，无法连接线！"
                 End If
             End If
         Next j
