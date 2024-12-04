@@ -72,7 +72,7 @@ Sub DrawRectanglesWithConnectionsInVisio()
     ' Step 2: Now loop through each rectangle and create the connections
     For i = 2 To lastRow ' Again start from row 2
         rectId = ExcelSheet.Cells(i, 1).value
-        connectToList = Split(ThisWorkbook.Sheets(Sheet1).Cells(i, 7).value, ";") ' Split ConnectTo into an array
+        connectToList = Split(ThisWorkbook.Sheets("Sheet1").Cells(i, 7).value, ";") ' Split ConnectTo into an array
         
         ' Loop through each entry in the connectToList (splitted by semicolon)
         For j = LBound(connectToList) To UBound(connectToList)
